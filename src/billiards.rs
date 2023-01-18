@@ -1,4 +1,7 @@
-use crate::{HyperPoint, Polygon};
+use num_complex::Complex64;
+
+use crate::geometry::HyperPoint;
+use crate::polygon::Polygon;
 
 enum Duality {
     Inner,

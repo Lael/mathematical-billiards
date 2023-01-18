@@ -1,4 +1,6 @@
-use crate::HyperPoint;
+use num_complex::Complex64;
+
+use crate::geometry::HyperPoint;
 
 pub struct Polygon<T> {
     vertices: Vec<T>,

@@ -1,3 +1,9 @@
+use std::ops::Div;
+use std::ops::Mul;
+use std::ops::Sub;
+
+use num_complex::Complex64;
+
 pub struct HyperPoint {
     poincare: Complex64,
     klein: Complex64,
@@ -31,7 +37,7 @@ struct Line {
 }
 
 impl Line {
-    fn new(p1: Complex64, p2: Complex64) -> Result<Line, String> {
+    fn through_points(p1: Complex64, p2: Complex64) -> Result<Line, String> {
         if p1.eq(&p2) {
             return Err("Line: need distinct points".to_string());
         }
@@ -63,12 +69,12 @@ trait Intersect<T> {
 
 impl Intersect<Complex64> for Geodesic<Complex64> {
     fn intersect(&self, other: Self) -> Option<Complex64> {
-        return None;
+        todo!()
     }
 }
 
 impl Intersect<HyperPoint> for Geodesic<HyperPoint> {
     fn intersect(&self, other: Self) -> Option<HyperPoint> {
-        return None;
+        todo!()
     }
 }
