@@ -1,23 +1,28 @@
 use crate::geometry::{fourth_circle, Line, PointLike, reflect};
 use crate::table::{PolygonTable, Table};
 
-enum Flavor {
+pub enum Flavor {
     Regular,
     Symplectic,
 }
 
-enum Geometry {
+pub enum Geometry {
     Affine,
     Hyperbolic,
 }
 
-struct InnerBilliardsState {
+pub struct InnerBilliardsState {
     start_time: f64,
     heading: f64,
 }
 
-struct OuterBilliardsState<T: PointLike> {
+pub struct OuterBilliardsState<T: PointLike> {
     point: T,
+}
+
+pub enum BilliardsState<T: PointLike> {
+    Inner(InnerBilliardsState),
+    Outer(OuterBilliardsState<T>),
 }
 
 struct PolygonalInnerBilliards<T: PointLike> {
@@ -50,15 +55,16 @@ impl<T: PointLike> PolygonalInnerBilliards<T> {
             }
         }
     }
-    fn iterate(&self, state: InnerBilliardsState, steps: usize) -> Vec<T> {
-        let mut vertices: Vec<T> = Vec::new();
+
+    fn iterate(&self, state: InnerBilliardsState, steps: usize) -> Vec<InnerBilliardsState> {
+        let mut orbit: Vec<InnerBilliardsState> = Vec::new();
         let mut current_state = state;
-        vertices.push(self.table.point(current_state.start_time));
+        orbit.push(current_state);
         for _ in 0..steps {
             current_state = self.next_state(&current_state);
-            vertices.push(self.table.point(current_state.start_time));
+            vertices.push(current_state);
         }
-        vertices
+        orbit
     }
 }
 
@@ -116,7 +122,7 @@ impl<T: PointLike> PolygonalOuterBilliards<T> {
                 Ok(state) => state,
                 Err(_) => panic!("Failed to iterate outer billiards")
             };
-            vertices.push(current_state.point.clone());
+            vertices.push(current_state.point.clone() );
         }
         vertices
     }

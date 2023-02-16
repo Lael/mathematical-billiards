@@ -1,3 +1,3 @@
-mod geometry;
-mod table;
-mod billiards;
+pub mod geometry;
+pub mod table;
+pub mod billiards;
