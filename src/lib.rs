@@ -1,3 +1,3 @@
 mod geometry;
-mod polygon;
+mod table;
 mod billiards;
